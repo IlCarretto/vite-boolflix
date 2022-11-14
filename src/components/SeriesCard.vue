@@ -23,6 +23,9 @@ export default {
                 this.countryFlag = series.original_language
             }
         }
+    },
+    created() {
+        this.getFlag()
     }
 }
 </script>

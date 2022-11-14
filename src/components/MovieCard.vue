@@ -16,13 +16,16 @@ export default {
             } else if (movie.original_language === en) {
                 this.countryFlag = "/uk.svg"
             } else if (movie.original_language === fr) {
-                this.countryFlag = "/fr.svg"
+                 this.countryFlag = "/fr.svg"
             } else if (movie_original_language === es) {
                 this.countryFlag = "/spain.svg"
             } else {
                 this.countryFlag = movie.original_language
             }
         }
+    },
+    created() {
+        this.getFlag()
     }
 }
 </script>
