@@ -32,6 +32,7 @@ export default {
         align-items: center;
         padding: 1rem;
         background-color: #333;
+        margin-bottom: 1rem;
 
         h1 {
             color: #B81D24;

@@ -15,10 +15,10 @@ export default {
 
         </div>
         <div class="bottom-card">
-            <h2>{{movie.title}}</h2>
-            <h3>{{movie.original_title}}</h3>
-            <p>{{movie.original_language}}</p>
-            <p>{{movie.vote_average}}</p>
+            <h3>Titolo: {{movie.title}}</h3>
+            <h4>Titolo Originale: {{movie.original_title}}</h4>
+            <!-- <img v-if="" :src="" alt=""> -->
+            <p>Voto: {{movie.vote_average}}</p>
         </div>
     </div>
 </template>
@@ -27,5 +27,6 @@ export default {
     .ms-card {
         border: 1px solid black;
         min-height: 250px;
+        padding: 1rem;
     }
 </style>
