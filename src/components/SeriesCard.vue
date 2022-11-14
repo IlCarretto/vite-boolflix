@@ -6,21 +6,21 @@ export default {
     },
     data() {
         return {
-            flagName: ""
+            countryFlag: ""
         }
     },
     methods: {
         getFlag() {
             if (series.original_language === it) {
-                this.flagName = "/italy.svg"
+                this.countryFlag = "/italy.svg"
             } else if (series.original_language === en) {
-                this.flagName = "/uk.svg"
+                this.countryFlag = "/uk.svg"
             } else if (series.original_language === fr) {
-                this.flagName = "/fr.svg"
+                this.countryFlag = "/fr.svg"
             } else if (movie_original_language === es) {
-                this.flagName = "/spain.svg"
+                this.countryFlag = "/spain.svg"
             } else {
-                this.flagName = series.original_language
+                this.countryFlag = series.original_language
             }
         }
     }
@@ -35,7 +35,7 @@ export default {
         <div class="bottom-card">
             <h3>Titolo: {{series.name}}</h3>
             <h4>Titolo Originale: {{series.original_name}}</h4>
-            <img :src="flagName" alt="">
+            <img :src="countryFlag" alt="">
             <p>Voto: {{series.vote_average}}</p>
         </div>
     </div>

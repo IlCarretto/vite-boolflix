@@ -6,21 +6,21 @@ export default {
     },
     data() {
         return {
-            flagName: ""
+            countryFlag: ""
         }
     },
     methods: {
         getFlag() {
             if (movie.original_language === it) {
-                this.flagName = "/italy.svg"
+                this.countryFlag = "/italy.svg"
             } else if (movie.original_language === en) {
-                this.flagName = "/uk.svg"
+                this.countryFlag = "/uk.svg"
             } else if (movie.original_language === fr) {
-                this.flagName = "/fr.svg"
+                this.countryFlag = "/fr.svg"
             } else if (movie_original_language === es) {
-                this.flagName = "/spain.svg"
+                this.countryFlag = "/spain.svg"
             } else {
-                this.flagName = movie.original_language
+                this.countryFlag = movie.original_language
             }
         }
     }
@@ -30,12 +30,11 @@ export default {
 <template>
     <div class="ms-card">
         <div class="top-card">
-
+            <img :src="countryFlag" alt="">
         </div>
         <div class="bottom-card">
             <h3>Titolo: {{movie.title}}</h3>
             <h4>Titolo Originale: {{movie.original_title}}</h4>
-            <img :src="flagName" alt="">
             <p>Voto: {{movie.vote_average}}</p>
         </div>
     </div>
