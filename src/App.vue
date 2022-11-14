@@ -1,6 +1,6 @@
 <script>
 import AppHeader from "./components/AppHeader.vue";
-import MoviesList from "./components/MoviesList.vue";
+import VideosList from "./components/VideosList.vue";
 import axios from "axios";
 import {store} from "./store";
 
@@ -8,7 +8,7 @@ import {store} from "./store";
 export default {
   components: {
     AppHeader,
-    MoviesList
+    VideosList
   },
   data() {
     return {
@@ -16,12 +16,19 @@ export default {
     }
   },
   methods: {
-    getMovies() {
+    getVideos() {
       axios
         .get(`${this.store.apiMovieURL}?api_key=${this.store.apiKey}&query=${this.store.searchKey}`)
         .then((resp) => {
           this.store.movies = resp.data.results;
           console.log(this.store.movies);
+        });
+
+      axios
+        .get(`${this.store.apiSeriesURL}?api_key=${this.store.apiKey}&query=${this.store.searchKey}`)
+        .then((resp) => {
+          this.store.series = resp.data.results;
+          console.log(this.store.series);
         })
     }
   }
@@ -29,8 +36,8 @@ export default {
 </script>
 
 <template>
-  <AppHeader @getResearch="getMovies" />
-  <MoviesList/>
+  <AppHeader @getResearch="getVideos" />
+  <VideosList/>
 </template>
 
 <style lang="scss">

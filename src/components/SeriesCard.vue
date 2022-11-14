@@ -1,8 +1,8 @@
 <script>
 export default {
-    name: "MovieCard",
+    name: "SeriesCard",
     props: {
-        movie: Object
+        series: Object
     },
     data() {
         return {
@@ -11,16 +11,16 @@ export default {
     },
     methods: {
         getFlag() {
-            if (movie.original_language === it) {
+            if (series.original_language === it) {
                 this.flagName = "/italy.svg"
-            } else if (movie.original_language === en) {
+            } else if (series.original_language === en) {
                 this.flagName = "/uk.svg"
-            } else if (movie.original_language === fr) {
+            } else if (series.original_language === fr) {
                 this.flagName = "/fr.svg"
             } else if (movie_original_language === es) {
                 this.flagName = "/spain.svg"
             } else {
-                this.flagName = movie.original_language
+                this.flagName = series.original_language
             }
         }
     }
@@ -33,10 +33,10 @@ export default {
 
         </div>
         <div class="bottom-card">
-            <h3>Titolo: {{movie.title}}</h3>
-            <h4>Titolo Originale: {{movie.original_title}}</h4>
+            <h3>Titolo: {{series.name}}</h3>
+            <h4>Titolo Originale: {{series.original_name}}</h4>
             <img :src="flagName" alt="">
-            <p>Voto: {{movie.vote_average}}</p>
+            <p>Voto: {{series.vote_average}}</p>
         </div>
     </div>
 </template>
