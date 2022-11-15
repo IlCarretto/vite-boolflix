@@ -1,5 +1,6 @@
 <script>
 import { getTransitionRawChildren } from 'vue'
+import {store} from "../store";
 
 export default {
     name: "ItemCard",
@@ -8,8 +9,10 @@ export default {
     },
     data() {
         return {
+            store,
             countryFlag: "",
-            countryName: ""
+            countryName: "",
+            posterPath: ""
         }
     },
     methods: {
@@ -25,10 +28,21 @@ export default {
             } else {
                 this.countryName = this.item.original_language
             }
-        }
+        },
+        getPosterImg() {
+            this.posterPath = this.store.cardImg + this.item.poster_path;
+        },
+        getFullStars() {
+            // Trasformare il voto in numero intero, poi dividerlo per 2 e il risultato è uguale al numero di stelle piene, la differenza con 5 è il numero di stelle vuote
+            return (Math.round(this.item.vote_average)) / 2;
+        },
+        // getEmptyStars() {
+        //     return (Math.round(this.item.vote_average)) / 2 % 5;
+        // }
     },
     created() {
-        this.getFlag()
+        this.getFlag();
+        this.getPosterImg();
     },
     computed: {
         getTitle() {
@@ -43,14 +57,18 @@ export default {
 
 <template>
     <div class="ms-card">
-        <div class="top-card">
+        <div class="card-img">
+            <img :src="posterPath" alt="">
         </div>
-        <div class="bottom-card">
+        <div class="card-desc">
             <h3>Titolo: {{getTitle}}</h3>
             <h4>Titolo Originale: {{getOriginalTitle}}</h4>
             <img v-if="countryFlag" :src="countryFlag" alt="">
             <p v-else>{{countryName}}</p>
-            <p>Voto: {{item.vote_average}}</p>
+            <p>Voto:
+                 <span v-for="fullStar in getFullStars()"><i class="fa-solid fa-star"></i></span>
+                 <!-- <span v-for="emptyStar in getEmptyStars()"><i class="fa-regular fa-star"></i></span> -->
+            </p>
         </div>
     </div>
 </template>
@@ -61,7 +79,7 @@ export default {
         min-height: 250px;
         padding: 1rem;
 
-        img {
+        .card-desc img {
             width: 50px;
         }
     }
