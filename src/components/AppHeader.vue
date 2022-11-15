@@ -13,7 +13,7 @@ export default {
 <template>
     <header>
         <div class="title">
-            <h1>BOOFLIX</h1>
+            <h1>BOOLFLIX</h1>
         </div>
         <div class="search-bar">
             <input v-model="store.searchKey" class=form-control type="text" placeholder="Cerca una serie">

@@ -1,13 +1,11 @@
 <script>
 import {store} from "../store";
-import MovieCard from "./MovieCard.vue";
-import SeriesCard from "./SeriesCard.vue";
+import ItemCard from "./ItemCard.vue";
 
 export default {
     name: "MoviesList",
     components: {
-        MovieCard,
-        SeriesCard
+        ItemCard
     },
     data() {
         return {
@@ -24,7 +22,7 @@ export default {
                 <h2>Film e cortometraggi</h2>
                 <div class="row row-cols-5 g-4">
                     <div v-for="(movie, index) in store.movies" class="col">
-                        <MovieCard :movie="movie"/>
+                        <ItemCard :item="movie"/>
                     </div>
                 </div>
             </div>
@@ -34,7 +32,7 @@ export default {
                 <h2>Serie TV</h2>
                 <div class="row row-cols-5 g-4">
                     <div v-for="(oneSeries, index) in store.series" class="col">
-                        <SeriesCard :series="oneSeries"/>
+                        <ItemCard :item="oneSeries"/>
                     </div>
                 </div>
             </div>

@@ -16,16 +16,27 @@ export default {
     }
   },
   methods: {
-    getVideos() {
+    searchFor() {
+      const paramsObj = {
+        api_key: this.store.apiKey,
+        query: this.store.searchKey
+      }
+      this.getVideos(paramsObj);
+    },
+    getVideos(paramsObj) {
       axios
-        .get(`${this.store.apiMovieURL}?api_key=${this.store.apiKey}&query=${this.store.searchKey}`)
+        .get(`${this.store.apiMovieURL}`, {
+          params: paramsObj
+        })
         .then((resp) => {
           this.store.movies = resp.data.results;
           console.log(this.store.movies);
         });
 
       axios
-        .get(`${this.store.apiSeriesURL}?api_key=${this.store.apiKey}&query=${this.store.searchKey}`)
+        .get(`${this.store.apiSeriesURL}`, {
+          params: paramsObj
+        })
         .then((resp) => {
           this.store.series = resp.data.results;
           console.log(this.store.series);
@@ -36,7 +47,7 @@ export default {
 </script>
 
 <template>
-  <AppHeader @getResearch="getVideos" />
+  <AppHeader @getResearch="searchFor" />
   <VideosList/>
 </template>
 
