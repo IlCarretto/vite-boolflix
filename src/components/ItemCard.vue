@@ -57,17 +57,19 @@ export default {
 <template>
     <div class="ms-card">
         <div class="card-img">
-            <img :src="posterPath" alt="">
+            <img v-if="this.item.poster_path" :src="posterPath" alt="">
+            <img v-else src="../assets/no_image.jpg" alt="">
         </div>
         <div class="card-desc">
             <h3>Titolo: {{getTitle}}</h3>
-            <h4>Titolo Originale: {{getOriginalTitle}}</h4>
+            <h4 v-if="getTitle !== getOriginalTitle">Titolo Originale: {{getOriginalTitle}}</h4>
             <img v-if="countryFlag" :src="countryFlag" alt="">
             <p v-else>{{countryName}}</p>
             <p>Voto:
                  <span v-for="fullStar in getFullStars()"><i class="fa-solid fa-star"></i></span>
                  <span v-for="emptyStar in getEmptyStars()"><i class="fa-regular fa-star"></i></span>
             </p>
+            <p>Overview: {{this.item.overview}}</p>
         </div>
     </div>
 </template>
@@ -87,11 +89,15 @@ export default {
             width: 100%;
             height: 100%;
             display: block;
+            object-fit: cover;
         }
 
         .card-desc {
+            width: 100%;
+            height: 100%;
             display: none;
             padding: 1rem;
+            overflow-y: scroll;
         
             img {
                 width: 50px;

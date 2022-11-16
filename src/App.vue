@@ -48,9 +48,19 @@ export default {
 
 <template>
   <AppHeader @getResearch="searchFor" />
-  <VideosList/>
+  <div class="main">
+    <VideosList/>
+  </div>
 </template>
 
 <style lang="scss">
 @use "./styles/general.scss" as *;
+@use "./styles/partials/variables" as *;
+
+  main {
+    width: 100%;
+    height: calc(100vh - $header-height);
+    background-color: gray;
+    overflow-y: scroll;
+  }
 </style>

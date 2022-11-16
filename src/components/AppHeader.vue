@@ -25,14 +25,14 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+@use "../styles/partials/variables" as *;
     header {
-        height: 80px;
+        height: $header-height;
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 1rem;
         background-color: #333;
-        margin-bottom: 1rem;
 
         h1 {
             color: #B81D24;
