@@ -1,5 +1,4 @@
 <script>
-import { getTransitionRawChildren } from 'vue'
 import {store} from "../store";
 
 export default {
@@ -10,38 +9,19 @@ export default {
     data() {
         return {
             store,
-            countryFlag: "",
-            countryName: "",
-            posterPath: ""
+            availableLanguages: ["en", "es", "it", "fr"]
         }
     },
     methods: {
-        getFlag() {
-            if (this.item.original_language === "it") {
-                this.countryFlag = "/italy.svg"
-            } else if (this.item.original_language === "en") {
-                this.countryFlag = "/uk.svg"
-            } else if (this.item.original_language === "fr") {
-                 this.countryFlag = "/france.svg"
-            } else if (this.item.original_language === "es") {
-                this.countryFlag = "/spain.svg"
-            } else {
-                this.countryName = this.item.original_language
-            }
-        },
-        getPosterImg() {
-            this.posterPath = this.store.cardImg + this.item.poster_path;
-        },
         getFullStars() {
             return Math.round(this.item.vote_average / 2);
         },
         getEmptyStars() {
             return (5 - Math.round(this.item.vote_average / 2));
+        },
+        getImgUrl(imgName) {
+            return new URL(`../../public/${imgName}`, import.meta.url).href;
         }
-    },
-    created() {
-        this.getFlag();
-        this.getPosterImg();
     },
     computed: {
         getTitle() {
@@ -49,7 +29,10 @@ export default {
         },
         getOriginalTitle() {
             return this.item.original_title ? this.item.original_title : this.item.original_name;
-        }
+        },
+        getPosterImg() {
+            return this.item.poster_path ? `http://image.tmdb.org/t/p/w342/${this.item.poster_path}` : this.getImgUrl('no_image.jpg');
+        },
     }
 }
 </script>
@@ -57,14 +40,13 @@ export default {
 <template>
     <div class="ms-card">
         <div class="card-img">
-            <img v-if="this.item.poster_path" :src="posterPath" alt="">
-            <img v-else src="../assets/no_image.jpg" alt="">
+            <img :src="getPosterImg" alt="">
         </div>
         <div class="card-desc">
             <h3>Titolo: {{getTitle}}</h3>
             <h4 v-if="getTitle !== getOriginalTitle">Titolo Originale: {{getOriginalTitle}}</h4>
-            <img v-if="countryFlag" :src="countryFlag" alt="">
-            <p v-else>{{countryName}}</p>
+            <img v-if="this.availableLanguages.includes(item.original_language)" :src="getImgUrl(`${item.original_language}.svg`)" alt="">
+            <p v-else>{{item.original_language}}</p>
             <p>Voto:
                  <span v-for="fullStar in getFullStars()"><i class="fa-solid fa-star"></i></span>
                  <span v-for="emptyStar in getEmptyStars()"><i class="fa-regular fa-star"></i></span>
@@ -89,7 +71,6 @@ export default {
             width: 100%;
             height: 100%;
             display: block;
-            object-fit: cover;
         }
 
         .card-desc {
@@ -98,6 +79,8 @@ export default {
             display: none;
             padding: 1rem;
             overflow-y: scroll;
+            background-color: black;
+            color: white;
         
             img {
                 width: 50px;

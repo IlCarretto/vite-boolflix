@@ -24,6 +24,8 @@ export default {
       this.getVideos(paramsObj);
     },
     getVideos(paramsObj) {
+      store.loading = true;
+
       axios
         .get(`${this.store.apiMovieURL}`, {
           params: paramsObj
@@ -31,6 +33,10 @@ export default {
         .then((resp) => {
           this.store.movies = resp.data.results;
           console.log(this.store.movies);
+          store.loading = false;
+        })
+        .catch(err => {
+          console.log("bad request");
         });
 
       axios
@@ -40,7 +46,11 @@ export default {
         .then((resp) => {
           this.store.series = resp.data.results;
           console.log(this.store.series);
+          store.loading = false;
         })
+        .catch(err => {
+          console.log("bad request");
+        });
     }
   }
 }
