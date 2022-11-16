@@ -33,12 +33,11 @@ export default {
             this.posterPath = this.store.cardImg + this.item.poster_path;
         },
         getFullStars() {
-            // Trasformare il voto in numero intero, poi dividerlo per 2 e il risultato è uguale al numero di stelle piene, la differenza con 5 è il numero di stelle vuote
-            return (Math.round(this.item.vote_average)) / 2;
+            return Math.round(this.item.vote_average / 2);
         },
-        // getEmptyStars() {
-        //     return (Math.round(this.item.vote_average)) / 2 % 5;
-        // }
+        getEmptyStars() {
+            return (5 - Math.round(this.item.vote_average / 2));
+        }
     },
     created() {
         this.getFlag();
@@ -67,7 +66,7 @@ export default {
             <p v-else>{{countryName}}</p>
             <p>Voto:
                  <span v-for="fullStar in getFullStars()"><i class="fa-solid fa-star"></i></span>
-                 <!-- <span v-for="emptyStar in getEmptyStars()"><i class="fa-regular fa-star"></i></span> -->
+                 <span v-for="emptyStar in getEmptyStars()"><i class="fa-regular fa-star"></i></span>
             </p>
         </div>
     </div>
@@ -76,11 +75,35 @@ export default {
 <style lang="scss" scoped>
     .ms-card {
         border: 1px solid black;
-        min-height: 250px;
-        padding: 1rem;
+        cursor: pointer;
+        height: 400px;
 
-        .card-desc img {
-            width: 50px;
+        .card-img {
+            width: 100%;
+            height: 100%;
         }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .card-desc {
+            display: none;
+            padding: 1rem;
+        
+            img {
+                width: 50px;
+            }
+        }
+    }
+
+    .ms-card:hover .card-img {
+            display: none;
+        }
+
+    .ms-card:hover .card-desc {
+        display: block;
     }
 </style>
